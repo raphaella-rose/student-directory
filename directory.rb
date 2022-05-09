@@ -9,15 +9,17 @@ def input_students
   while !name.empty? do
     #add the student hash to the array
     students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students"
+    if students.count == 1
+      puts "Now we have 1 student"
+    else  
+      puts "Now we have #{students.count} students"
+    end
     #get another name from the user
     name = gets.chomp
   end
   #return the array of students
   students
 end
-
-
 
 def print_header
  puts "The students of Villains Academy"
@@ -34,8 +36,34 @@ def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 
-students = input_students
-print_header
-print(students)
-print_footer(students)
+def interactive_menu
+  students = []
+  loop do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    selection = gets.chomp
+    case selection
+      when "1"
+        students = input_students
+      when "2"
+        if students.count >= 1 
+          print_header
+          print(students)
+          print_footer(students)
+        else
+          puts "There are no students enrolled at Villans Academy."  
+        end
+      when "9"
+        exit
+      else
+        puts "I don't know what you meant, try again"
+    end
+  end
+end
+
+interactive_menu
+
+
+
 
